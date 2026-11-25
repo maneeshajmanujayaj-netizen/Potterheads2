@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070b19" />
+  <title>Potterheads Sri Lanka | Hogwarts Is Our Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-midnight: #070b19;
+      --bg-navy: #0e162e;
+      --bg-card: rgba(16, 25, 52, 0.9);
+      --gold: #d4af37;
+      --gold-bright: #f7df8b;
+      --teal-moon: #2ba89c;
+      --text-main: #f3efe6;
+      --text-muted: #b6bfd6;
+      --border-gold: rgba(212, 175, 55, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #121d3d 0%, var(--bg-midnight) 65%, #04060e 100%);
+      color: var(--text-main);
+      font-family: 'Crimson Text', 'Noto Sans Sinhala', Georgia, serif;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .sky-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff6d6;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle var(--dur, 4s) ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.15; transform: scale(0.8); }
+      100% { opacity: 0.95; transform: scale(1.25); }
+    }
+
+    .candle {
+      position: absolute;
+      width: 8px;
+      height: 28px;
+      background: linear-gradient(to bottom, #fff9e6, #e6d5a7);
+      border-radius: 2px;
+      box-shadow: 0 0 12px rgba(255, 215, 110, 0.35);
+      animation: floatCandle var(--fdur, 7s) ease-in-out infinite alternate;
+      opacity: 0.75;
+    }
+
+    .candle::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 10px;
+      background: radial-gradient(circle, #fff 15%, #ffbe3b 60%, transparent 100%);
+      border-radius: 50% 50% 35% 35%;
+      box-shadow: 0 0 14px 4px rgba(255, 190, 59, 0.75);
+      animation: flicker 0.35s infinite alternate;
+    }
+
+    @keyframes floatCandle {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-22px); }
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(0.92); opacity: 0.85; }
+      100% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px 60px;
+    }
+
+    .top-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      background: rgba(9, 14, 30, 0.94);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 10px 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    }
+
+    .social-group, .utility-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .utility-group { justify-content: flex-end; }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-bright);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Cinzel', 'Noto Sans Sinhala', serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .icon-btn:hover {
+      background: rgba(212, 175, 55, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .icon-circle {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: 5px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #ff4d4d;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ff4d4d;
+    }
+
+    .brand-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .header-logo-img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--gold);
+      background: #070d20;
+    }
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--gold-bright);
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: var(--teal-moon);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+    }
+
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 16px 0 22px;
+    }
+
+    .nav-tab {
+      background: rgba(14, 22, 46, 0.85);
+      border: 1px solid var(--border-gold);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-family: 'Cinzel', 'Noto Sans Sinhala', serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab.active, .nav-tab:hover {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.28), rgba(212, 175, 55, 0.1));
+      color: var(--gold-bright);
+      border-color: var(--gold-bright);
+    }
+
+    .view-section { display: none; }
+    .view-section.active { display: block; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .hero-box {
+      text-align: center;
+      padding: 34px 22px;
+      background: radial-gradient(circle at center, rgba(43, 168, 156, 0.14) 0%, rgba(14, 22, 46, 0.92) 70%);
+    }
+
+    .crest-badge {
+      width: 145px;
+      height: 145px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: #070d20;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 28px rgba(43, 168, 156, 0.35), 0 0 18px rgba(212, 175, 55, 0.28);
+    }
+
+    .hero-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cinzel', 'Noto Sans Sinhala', serif;
+      color: var(--gold-bright);
+    }
+
+    .hero-title {
+      font-size: clamp(1.45rem, 3.5vw, 2.45rem);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      color: var(--text-main);
+      max-width: 680px;
+      margin: 0 auto 22px;
+      line-height: 1.6;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #e5c158, #b88c24);
+      color: #090d1c;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-family: 'Cinzel', 'Noto Sans Sinhala', serif;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(212, 175, 55, 0.45);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold-bright);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-family: 'Cinzel', 'Noto Sans Sinhala', serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover { background: rgba(212, 175, 55, 0.16); }
+
+    .grid-3, .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .ceremony-card {
+      background: rgba(10, 16, 36, 0.92);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-family: 'Cinzel', 'Noto Sans Sinhala', serif;
+      font-weight: 700;
+    }
+
+    .status-locked { background: rgba(212, 175, 55, 0.15); color: var(--gold-bright); border: 1px solid var(--gold); }
+    .status-earned { background: rgba(43, 168, 156, 0.22); color: #7ef2e6; border: 1px solid #2ba89c; }
+
+    .student-id-card {
+      background: linear-gradient(135deg, #131f42 0%, #090f24 60%, #19264d 100%);
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.65);
+    }
+
+    .student-id-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-gold);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+
+    .id-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+      gap: 12px;
+    }
+
+    .id-field-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--teal-moon);
+      font-family: 'Cinzel', sans-serif;
+    }
+
+    .id-field-val {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+      word-break: break-word;
+    }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--gold-bright);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-gold);
+      background: rgba(7, 11, 25, 0.95);
+      color: var(--text-main);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-hint {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 6, 15, 0.86);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      z-index: 999;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      background: #0d152e;
+      border: 1px solid var(--gold);
+      border-radius: 20px;
+      max-width: 620px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 22px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--gold-bright);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      background: rgba(18, 28, 58, 0.92);
+      border: 1px solid var(--border-gold);
+      color: var(--text-main);
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-option:hover {
+      background: rgba(212, 175, 55, 0.22);
+      border-color: var(--gold-bright);
+      transform: translateX(4px);
+    }
+
+    .trait-chip {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid var(--gold);
+      color: var(--gold-bright);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      margin: 4px;
+      font-family: 'Cinzel', 'Noto Sans Sinhala', serif;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .count-box {
+      background: rgba(7, 11, 25, 0.92);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 10px 4px;
+      text-align: center;
+    }
+
+    .count-num {
+      font-family: 'Cinzel', serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--gold-bright);
+    }
+
+    .count-lbl {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--teal-moon);
+      letter-spacing: 1px;
+    }
+
+    .error-msg {
+      color: #ff7b7b;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .app-shell { padding: 10px 10px 40px; }
+      .top-bar { grid-template-columns: 1fr; text-align: center; gap: 10px; padding: 12px; }
+      .social-group, .utility-group { justify-content: center; flex-wrap: wrap; }
+      .card { padding: 18px 14px; border-radius: 16px; }
+      .hero-box { padding: 24px 14px; }
+      .crest-badge { width: 115px; height: 115px; }
+      .nav-tab { padding: 7px 13px; font-size: 0.78rem; }
+      .btn-gold, .btn-outline { width: 100%; justify-content: center; }
+      .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky-layer" id="skyLayer"></div>
+
+  <div class="app-shell">
+    <header class="top-bar">
+      <div class="social-group">
+        <a href="https://youtube.com/@potterheadslk" target="_blank" rel="noopener" class="icon-btn" title="YouTube @potterheadslk">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+          <span>YouTube</span>
+        </a>
+        <a href="https://whatsapp.com/channel/0029Vaebw1Q6xCSL6R6V8s2z" target="_blank" rel="noopener" class="icon-btn" title="Potterheads WhatsApp Channel">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.82 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2.01.89 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.14-.3.3-.13.59.17.29.75 1.24 1.62 2.01 1.11.99 2.05 1.3 2.34 1.44.29.15.46.12.63-.07.17-.19.73-.85.92-1.14.19-.29.39-.24.66-.14.27.1 1.7.8 1.99.95.29.14.49.22.56.34.07.12.07.69-.17 1.37z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+      </div>
+
+      <div class="brand-center" id="brandHomeBtn">
+        <img
+          src="https://lh3.googleusercontent.com/d/1UFLbnqrbr9wmc6A3JiwqpNFR7DSdf796"
+          onerror="this.onerror=null; this.src='https://drive.google.com/uc?export=view&id=1UFLbnqrbr9wmc6A3JiwqpNFR7DSdf796';"
+          alt="Potterheads Top Logo"
+          class="header-logo-img"
+        />
+        <div>
+          <div class="brand-title">POTTERHEADS</div>
+          <div class="brand-sub">HOGWARTS IS OUR HOME</div>
+        </div>
+      </div>
+
+      <div class="utility-group">
+        <button type="button" class="icon-btn" id="langBtn" title="Switch Language">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+          <span id="langLabel">EN / සිංහල</span>
+        </button>
+
+        <button type="button" class="icon-btn icon-circle" id="notifBtn" title="Mystery Notice">
+          <span class="notif-dot"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+
+        <button type="button" class="icon-btn icon-circle" id="profileBtn" title="Student Profile & Sorting Hat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L7 14l-3 3h16l-3-3L12 2z"/><path d="M2 18c4 2 16 2 20 0"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="nav-tabs">
+      <button type="button" class="nav-tab active" data-tab="home" data-i18n="navHome">Home</button>
+      <button type="button" class="nav-tab" data-tab="quizzes" data-i18n="navQuizzes">Quizzes</button>
+      <button type="button" class="nav-tab" data-tab="articles" data-i18n="navArticles">Articles</button>
+      <button type="button" class="nav-tab" data-tab="lessons" data-i18n="navLessons">Lessons</button>
+      <button type="button" class="nav-tab" data-tab="about" data-i18n="navAbout">About Us</button>
+    </nav>
+
+    <section id="sec-home" class="view-section active">
+      <div class="card hero-box">
+        <div class="crest-badge">
+          <img
+            src="https://lh3.googleusercontent.com/d/1L7br697d5BqgWqhAKy8O5N7JgBob-x0N"
+            onerror="this.onerror=null; this.src='https://drive.google.com/uc?export=view&id=1L7br697d5BqgWqhAKy8O5N7JgBob-x0N';"
+            alt="Potterheads Middle Crest"
+            class="hero-logo-img"
+          />
+        </div>
+        <h1 class="hero-title" id="heroGreeting" data-i18n="heroTitle">Welcome, Potterhead</h1>
+        <p class="hero-lead" data-i18n="heroSub">
+          Step beneath the enchanted ceiling of the Great Hall. To continue the magic, claim your official Student ID, join our Potterheads family, and earn your true Hogwarts House, Wand, and Patronus.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+          <button type="button" class="btn-gold" id="heroCtaBtn" data-i18n="heroCta">Join Potterheads Family / Student ID</button>
+          <button type="button" class="btn-outline" id="heroQuizBtn" data-i18n="heroQuizBtn">Enter Sorting Ceremonies</button>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="ceremony-card">
+          <div>
+            <span class="status-pill status-locked" id="homeHouseBadge">Earned Only</span>
+            <h3 style="margin:10px 0 6px;" data-i18n="houseCardTitle">Hogwarts House</h3>
+            <p style="color:var(--text-muted); font-size:0.98rem;">Face the Sorting Hat's randomized trial. Once sorted, your House is yours forever.</p>
+          </div>
+          <button type="button" class="btn-outline" data-ceremony="house" id="homeHouseBtn">Begin House Sorting</button>
+        </div>
+
+        <div class="ceremony-card">
+          <div>
+            <span class="status-pill status-locked" id="homeWandBadge">Earned Only</span>
+            <h3 style="margin:10px 0 6px;" data-i18n="wandCardTitle">Ollivanders Wand</h3>
+            <p style="color:var(--text-muted); font-size:0.98rem;">The wand chooses the wizard. Complete the wandmaker's trial to discover your wood and core.</p>
+          </div>
+          <button type="button" class="btn-outline" data-ceremony="wand" id="homeWandBtn">Discover Your Wand</button>
+        </div>
+
+        <div class="ceremony-card">
+          <div>
+            <span class="status-pill status-locked" id="homePatronusBadge">Earned Only</span>
+            <h3 style="margin:10px 0 6px;" data-i18n="patronusCardTitle">Guardian Patronus</h3>
+            <p style="color:var(--text-muted); font-size:0.98rem;">Summon your happiest memory to reveal the guardian animal bound to your soul.</p>
+          </div>
+          <button type="button" class="btn-outline" data-ceremony="patronus" id="homePatronusBtn">Summon Patronus</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3 style="margin-bottom:8px;" data-i18n="roadmapTitle">Coming Soon to the Castle</h3>
+        <p style="color:var(--text-muted); margin-bottom:14px;" data-i18n="roadmapSub">Future magical chambers currently under enchantment for Sri Lankan Potterheads:</p>
+        <div class="grid-3">
+          <div style="background:rgba(7,11,25,0.7); padding:14px; border-radius:12px; border:1px solid var(--border-gold);">
+            <strong style="color:var(--gold-bright);">⏳ Hogwarts Study Room</strong>
+            <p style="font-size:0.92rem; color:var(--text-muted); margin-top:4px;">Spin the enchanted timer wheel and study your Sri Lankan school subjects alongside fellow students.</p>
+          </div>
+          <div style="background:rgba(7,11,25,0.7); padding:14px; border-radius:12px; border:1px solid var(--border-gold);">
+            <strong style="color:var(--gold-bright);">🪙 Diagon Alley & Galleons</strong>
+            <p style="font-size:0.92rem; color:var(--text-muted); margin-top:4px;">Earn Galleons through quizzes and study streaks to collect magical artifacts and robes.</p>
+          </div>
+          <div style="background:rgba(7,11,25,0.7); padding:14px; border-radius:12px; border:1px solid var(--border-gold);">
+            <strong style="color:var(--gold-bright);">🗺️ The Marauder's Map</strong>
+            <p style="font-size:0.92rem; color:var(--text-muted); margin-top:4px;">Follow fellow Potterheads, make wizarding friends, and send owl messages inside our community.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sec-quizzes" class="view-section">
+      <div class="card">
+        <h2 style="margin-bottom:8px;" data-i18n="quizzesHeading">Official Wizarding Trials</h2>
+        <p style="color:var(--text-muted); margin-bottom:18px;" data-i18n="quizzesDesc">
+          Every question and choice is shuffled by magic each time. You cannot pick or alter your destiny—whatever you earn becomes a permanent part of your Student ID.
+        </p>
+        <div class="grid-3">
+          <div class="ceremony-card">
+            <div>
+              <h3>1. The Sorting Ceremony</h3>
+              <p style="color:var(--text-muted); margin-top:6px;">Answer 5 shuffled questions to be placed permanently into Gryffindor, Ravenclaw, Hufflepuff, or Slytherin.</p>
+            </div>
+            <button type="button" class="btn-gold" data-ceremony="house">Take House Quiz</button>
+          </div>
+          <div class="ceremony-card">
+            <div>
+              <h3>2. The Wand Ceremony</h3>
+              <p style="color:var(--text-muted); margin-top:6px;">Answer 5 shuffled questions to reveal the exact wand wood, core, and length that chooses you.</p>
+            </div>
+            <button type="button" class="btn-gold" data-ceremony="wand">Take Wand Quiz</button>
+          </div>
+          <div class="ceremony-card">
+            <div>
+              <h3>3. The Patronus Charm</h3>
+              <p style="color:var(--text-muted); margin-top:6px;">Answer 5 shuffled questions to conjure your permanent guardian from across the animal kingdom.</p>
+            </div>
+            <button type="button" class="btn-gold" data-ceremony="patronus">Take Patronus Quiz</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sec-articles" class="view-section">
+      <div class="card">
+        <h2 style="margin-bottom:8px;" data-i18n="articlesHeading">Wizarding Archives & Lore</h2>
+        <p style="color:var(--text-muted); margin-bottom:18px;">Deep lore from the Sacred Twenty-Eight, wandmakers, and Hogwarts history.</p>
+        <div class="grid-2">
+          <article class="ceremony-card">
+            <div>
+              <span class="status-pill status-locked">Sacred Twenty-Eight</span>
+              <h3 style="margin:10px 0 8px;">The House of Nott</h3>
+              <p style="color:var(--text-muted); line-height:1.55;">
+                Listed in the 1930s <em>Pure-Blood Directory</em>, the Nott family is one of Britain's oldest wizarding lineages. Cantankerus Nott is widely believed to have authored the Sacred Twenty-Eight list itself, while later generations—including Theodore Nott—became known for quiet intellect, solitary study, and complicated ties to the First and Second Wizarding Wars.
+              </p>
+            </div>
+          </article>
+
+          <article class="ceremony-card">
+            <div>
+              <span class="status-pill status-locked">Sacred Twenty-Eight</span>
+              <h3 style="margin:10px 0 8px;">The Ollivander Lineage</h3>
+              <p style="color:var(--text-muted); line-height:1.55;">
+                Crafting fine wands since 382 B.C., the Ollivanders are also counted among the Sacred Twenty-Eight. Garrick Ollivander revolutionized British wandcraft by standardizing three supreme cores—Phoenix feather, Dragon heartstring, and Unicorn hair—and teaching generations of witches and wizards that the wand chooses the wizard.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sec-lessons" class="view-section">
+      <div class="card">
+        <h2 style="margin-bottom:8px;" data-i18n="lessonsHeading">Hogwarts Magical Lessons</h2>
+        <p style="color:var(--text-muted); margin-bottom:18px;">Watch our official magical lessons, lore breakdowns, and study guides on YouTube (@potterheadslk).</p>
+        <div class="grid-3">
+          <div class="ceremony-card">
+            <div>
+              <span class="status-pill status-earned">Charms & Incantations</span>
+              <h3 style="margin:10px 0 6px;">Essential Hogwarts Spells</h3>
+              <p style="color:var(--text-muted);">Master pronunciation, wand movements, and the Latin roots behind classic charms.</p>
+            </div>
+            <a href="https://youtube.com/@potterheadslk" target="_blank" rel="noopener" class="btn-outline" style="text-align:center; text-decoration:none;">Watch on YouTube</a>
+          </div>
+          <div class="ceremony-card">
+            <div>
+              <span class="status-pill status-earned">Arithmancy & O.W.L.s</span>
+              <h3 style="margin:10px 0 6px;">Hogwarts Math Matters</h3>
+              <p style="color:var(--text-muted);">Hermione-inspired study sheets connecting wizarding themes with real exam formulas.</p>
+            </div>
+            <a href="https://youtube.com/@potterheadslk" target="_blank" rel="noopener" class="btn-outline" style="text-align:center; text-decoration:none;">Explore Lessons</a>
+          </div>
+          <div class="ceremony-card">
+            <div>
+              <span class="status-pill status-earned">History of Magic</span>
+              <h3 style="margin:10px 0 6px;">The Sacred Twenty-Eight</h3>
+              <p style="color:var(--text-muted);">Detailed chronicles of ancient wizarding families, crests, and hidden lore.</p>
+            </div>
+            <a href="https://youtube.com/@potterheadslk" target="_blank" rel="noopener" class="btn-outline" style="text-align:center; text-decoration:none;">Watch Series</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sec-about" class="view-section">
+      <div class="card">
+        <h2 style="margin-bottom:14px;" data-i18n="aboutTitle">About Us</h2>
+        <div style="font-size:1.08rem; line-height:1.75; color:var(--text-main);">
+          <p style="margin-bottom:14px;">
+            <strong>Potterheads</strong> began on <strong>May 24, 2024 (24.05.2024)</strong> as a wizarding home for Harry Potter fans in Sri Lanka. Just one day later, on <strong>May 25, 2024 (25.05.2024)</strong>, our community welcomed its first <strong>100 Wizards</strong>. That early spark grew to <strong>1K Wizards</strong> by <strong>July 17, 2024 (17.07.2024)</strong>, bounced back stronger when we rebuilt to <strong>1K</strong> on <strong>January 13, 2026 (13.01.2026)</strong>, and today brings together more than <strong>1.5K Wizards</strong>.
+          </p>
+          <p style="margin-bottom:14px;">
+            Across our WhatsApp Channel and YouTube (<strong>@potterheadslk</strong>), we share House Cup competitions, daily Harry Potter trivia and "Would you rather" prompts, lore breakdowns, and magical lessons. All original content created for Potterheads is protected—please do not copy, alter, or forward our original posts or materials to other public channels without proper credit or consent.
+          </p>
+          <div style="background:rgba(7,11,25,0.85); border:1px solid var(--border-gold); border-radius:14px; padding:16px; margin-top:18px;">
+            <h3 style="margin-bottom:6px; font-size:1.05rem;">Contact Us</h3>
+            <p style="color:var(--gold-bright); font-weight:600; word-break:break-word;">Email: <a href="mailto:potterheads245@gmail.com" style="color:var(--gold-bright);">potterheads245@gmail.com</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Notification Modal -->
+  <div class="modal-backdrop" id="notifModal">
+    <div class="modal-box" style="text-align:center;">
+      <button type="button" class="modal-close" data-close="notifModal">&times;</button>
+      <span class="status-pill status-locked">Restricted Scroll</span>
+      <h2 style="margin:12px 0 8px;">Something Magical Awaits...</h2>
+      <p style="color:var(--text-muted); font-size:1.05rem;">
+        Twenty-five sealed chambers stand locked behind the Great Hall doors. The enchantment breaks on <strong>December 1</strong>. Keep your wand ready!
+      </p>
+      <div class="countdown-grid">
+        <div class="count-box"><div class="count-num" id="cdDays">00</div><div class="count-lbl">Days</div></div>
+        <div class="count-box"><div class="count-num" id="cdHours">00</div><div class="count-lbl">Hours</div></div>
+        <div class="count-box"><div class="count-num" id="cdMins">00</div><div class="count-lbl">Mins</div></div>
+        <div class="count-box"><div class="count-num" id="cdSecs">00</div><div class="count-lbl">Secs</div></div>
+      </div>
+      <button type="button" class="btn-gold" data-close="notifModal">I Will Be Ready</button>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div class="modal-backdrop" id="profileModal">
+    <div class="modal-box">
+      <button type="button" class="modal-close" data-close="profileModal">&times;</button>
+
+      <div id="profileLoggedInView" style="display:none;">
+        <h2 style="margin-bottom:14px;">Official Student Identification</h2>
+        <div class="student-id-card">
+          <div class="student-id-header">
+            <div>
+              <div style="font-family:'Cinzel',serif; font-weight:800; color:var(--gold-bright);">POTTERHEADS SRI LANKA</div>
+              <div style="font-size:0.75rem; color:var(--teal-moon); letter-spacing:1px;">HOGWARTS STUDENT IDENTITY CARD</div>
+            </div>
+            <div style="font-family:'Cinzel',serif; font-weight:800; color:var(--gold);" id="idNumberDisplay">PH-2026-0000</div>
+          </div>
+          <div class="id-grid">
+            <div><div class="id-field-label">Student Name</div><div class="id-field-val" id="idNameDisplay">-</div></div>
+            <div><div class="id-field-label">Age</div><div class="id-field-val" id="idAgeDisplay">-</div></div>
+            <div><div class="id-field-label">Hogwarts House</div><div class="id-field-val" id="idHouseDisplay">Not Yet Earned</div></div>
+            <div><div class="id-field-label">Wand</div><div class="id-field-val" id="idWandDisplay">Not Yet Earned</div></div>
+            <div><div class="id-field-label">Patronus</div><div class="id-field-val" id="idPatronusDisplay">Not Yet Earned</div></div>
+            <div><div class="id-field-label">Contact</div><div class="id-field-val" id="idContactDisplay">-</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center;">
+          <div style="display:flex; flex-wrap:wrap; gap:8px; width:100%;">
+            <button type="button" class="btn-outline" id="modalHouseBtn" data-ceremony="house">Earn House</button>
+            <button type="button" class="btn-outline" id="modalWandBtn" data-ceremony="wand">Earn Wand</button>
+            <button type="button" class="btn-outline" id="modalPatronusBtn" data-ceremony="patronus">Earn Patronus</button>
+          </div>
+          <button type="button" class="btn-outline" id="logoutBtn" style="border-color:#ff7b7b; color:#ff9e9e;">Log Out</button>
+        </div>
+      </div>
+
+      <div id="profileAuthView">
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
+          <button type="button" class="nav-tab active" id="tabRegBtn">Join Family (Register)</button>
+          <button type="button" class="nav-tab" id="tabLoginBtn">Student Login</button>
+        </div>
+
+        <form id="registerForm">
+          <p style="color:var(--text-muted); margin-bottom:14px;">
+            To continue the magic, join our Potterheads family and receive your official Student ID!
+          </p>
+          <div class="form-group">
+            <label>Wizard / Witch Name *</label>
+            <input type="text" id="regName" class="form-control" required placeholder="e.g., Hiruni Perera" />
+          </div>
+          <div class="form-group">
+            <label>Age * <span style="color:var(--teal-moon); font-weight:400;">(Below 18 is completely welcome!)</span></label>
+            <input type="number" id="regAge" class="form-control" min="5" max="99" required placeholder="e.g., 15" />
+          </div>
+          <div class="form-group">
+            <label>Email Address (Your own or a parent's email)</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="Optional if WhatsApp number is provided" />
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number</label>
+            <input type="tel" id="regWhatsapp" class="form-control" placeholder="e.g., +94 7X XXX XXXX" />
+            <div class="form-hint">* Please provide at least your Email OR your WhatsApp number so your Student ID can be verified.</div>
+          </div>
+          <div class="form-group">
+            <label>Create Password *</label>
+            <input type="password" id="regPass" class="form-control" required minlength="4" placeholder="Choose a secret password" />
+          </div>
+          <div class="error-msg" id="regError"></div>
+          <button type="submit" class="btn-gold" style="width:100%; justify-content:center;">Create My Official Student ID</button>
+        </form>
+
+        <form id="loginForm" style="display:none;">
+          <p style="color:var(--text-muted); margin-bottom:14px;">
+            Already have your Potterheads Student ID? Enter your Student ID (or Name) and Password below.
+          </p>
+          <div class="form-group">
+            <label>Student ID or Name *</label>
+            <input type="text" id="loginId" class="form-control" required placeholder="e.g., PH-2026-4821" />
+          </div>
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" id="loginPass" class="form-control" required placeholder="Enter your password" />
+          </div>
+          <div class="error-msg" id="loginError"></div>
+          <button type="submit" class="btn-gold" style="width:100%; justify-content:center;">Enter Hogwarts Portal</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="modal-backdrop" id="quizModal">
+    <div class="modal-box">
+      <button type="button" class="modal-close" data-close="quizModal">&times;</button>
+      <div id="quizPlayArea">
+        <span class="status-pill status-locked" id="quizProgressLabel">Question 1 of 5</span>
+        <h2 style="margin:12px 0 16px;" id="quizQuestionText">Question text</h2>
+        <div id="quizOptionsContainer"></div>
+      </div>
+
+      <div id="quizResultArea" style="display:none; text-align:center;">
+        <span class="status-pill status-earned">Permanently Earned</span>
+        <h2 style="margin:14px 0 8px; font-size:1.55rem;" id="revealHeadline">Hey Wizard, you got ...</h2>
+        <p style="color:var(--text-main); font-size:1.05rem; line-height:1.6; margin-bottom:14px;" id="revealDescription"></p>
+        <div style="margin-bottom:16px;" id="revealTraits"></div>
+        <p style="font-size:0.9rem; color:var(--teal-moon); margin-bottom:18px;">
+          This result has been permanently etched onto your Potterheads Student ID.
+        </p>
+        <button type="button" class="btn-gold" id="viewIdAfterQuizBtn">View My Student ID</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const sky = document.getElementById('skyLayer');
+      if (sky) {
+        for (let i = 0; i < 45; i++) {
+          const s = document.createElement('div');
+          s.className = 'star';
+          const size = (Math.random() * 2.5 + 1).toFixed(1) + 'px';
+          s.style.width = size;
+          s.style.height = size;
+          s.style.left = (Math.random() * 100).toFixed(1) + '%';
+          s.style.top = (Math.random() * 100).toFixed(1) + '%';
+          s.style.setProperty('--dur', (Math.random() * 3 + 2.5).toFixed(1) + 's');
+          sky.appendChild(s);
+        }
+        for (let i = 0; i < 12; i++) {
+          const c = document.createElement('div');
+          c.className = 'candle';
+          c.style.left = (6 + i * 7.5).toFixed(1) + '%';
+          c.style.top = (12 + (i % 4) * 15) + '%';
+          c.style.setProperty('--fdur', (Math.random() * 4 + 5).toFixed(1) + 's');
+          sky.appendChild(c);
+        }
+      }
+
+      function updateCountdown() {
+        const target = new Date('2026-12-01T00:00:00+05:30').getTime();
+        const diff = Math.max(0, target - Date.now());
+        document.getElementById('cdDays').textContent = String(Math.floor(diff / 86400000)).padStart(2, '0');
+        document.getElementById('cdHours').textContent = String(Math.floor((diff / 3600000) % 24)).padStart(2, '0');
+        document.getElementById('cdMins').textContent = String(Math.floor((diff / 60000) % 60)).padStart(2, '0');
+        document.getElementById('cdSecs').textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+      }
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      let memoryUser = null;
+      const STORAGE_KEY = 'potterheads_lk_user_v1';
+
+      function getUser() {
+        try {
+          const raw = window.localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : memoryUser;
+        } catch (err) {
+          return memoryUser;
+        }
+      }
+
+      function saveUser(u) {
+        memoryUser = u;
+        try {
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
+        } catch (err) {}
+        refreshUserUI();
+      }
+
+      let currentLang = 'en';
+      const i18n = {
+        en: {
+          navHome: 'Home', navQuizzes: 'Quizzes', navArticles: 'Articles', navLessons: 'Lessons', navAbout: 'About Us',
+          heroTitle: 'Welcome, Potterhead',
+          heroSub: 'Step beneath the enchanted ceiling of the Great Hall. To continue the magic, claim your official Student ID, join our Potterheads family, and earn your true Hogwarts House, Wand, and Patronus.',
+          heroCta: 'Join Potterheads Family / Student ID', heroQuizBtn: 'Enter Sorting Ceremonies',
+          houseCardTitle: 'Hogwarts House', wandCardTitle: 'Ollivanders Wand', patronusCardTitle: 'Guardian Patronus',
+          roadmapTitle: 'Coming Soon to the Castle', roadmapSub: 'Future magical chambers currently under enchantment for Sri Lankan Potterheads:',
+          quizzesHeading: 'Official Wizarding Trials',
+          quizzesDesc: 'Every question and choice is shuffled by magic each time. You cannot pick or alter your destiny—whatever you earn becomes a permanent part of your Student ID.',
+          articlesHeading: 'Wizarding Archives & Lore', lessonsHeading: 'Hogwarts Magical Lessons', aboutTitle: 'About Us'
+        },
+        si: {
+          navHome: 'මුල් පිටුව', navQuizzes: 'ප්‍රශ්නාවලි', navArticles: 'ලිපි', navLessons: 'පාඩම්', navAbout: 'අප ගැන',
+          heroTitle: 'සාදරයෙන් පිළිගනිමු, Potterhead',
+          heroSub: 'මහා ශාලාවේ මායාකාරී වහලය යටට පියනගන්න. මායාව ඉදිරියට ගෙන යාමට අපගේ Potterheads පවුලට එකතු වී ඔබේ නිල ශිෂ්‍ය හැඳුනුම්පත (Student ID) ලබාගෙන ඔබේ නිවස, මායා යෂ්ටිය සහ Patronus උපයා ගන්න.',
+          heroCta: 'Potterheads පවුලට එක්වන්න / Student ID', heroQuizBtn: 'තේරීමේ උත්සව වෙත පිවිසෙන්න',
+          houseCardTitle: 'හොග්වර්ට්ස් නිවස', wandCardTitle: 'ඔලිවැන්ඩර් මායා යෂ්ටිය', patronusCardTitle: 'ආරක්ෂක Patronus',
+          roadmapTitle: 'ළඟදීම මාලිගාවට එක්වන අංග', roadmapSub: 'ශ්‍රී ලාංකික Potterheads වෙනුවෙන් ඉදිරියේදී විවෘත වන නව මායා කුටි:',
+          quizzesHeading: 'නිල මායා පරීක්ෂණ',
+          quizzesDesc: 'සෑම අවස්ථාවකදීම ප්‍රශ්න සහ පිළිතුරු අනුපිළිවෙල වෙනස් වේ. ඔබ උපයා ගන්නා ප්‍රතිඵලය ඔබේ Student ID එකෙහි ස්ථිරවම සටහන් වේ.',
+          articlesHeading: 'මායා ලෝකයේ ලිපි සහ ඉතිහාසය', lessonsHeading: 'හොග්වර්ට්ස් මායා පාඩම්', aboutTitle: 'අප ගැන'
+        }
+      };
+
+      function applyLanguage() {
+        const dict = i18n[currentLang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key]) el.textContent = dict[key];
+        });
+        document.getElementById('langLabel').textContent = currentLang === 'en' ? 'EN / සිංහල' : 'සිංහල / EN';
+        refreshUserUI();
+      }
+
+      function switchTab(tabId) {
+        document.querySelectorAll('.nav-tab[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+        document.querySelectorAll('.view-section').forEach(s => s.classList.toggle('active', s.id === 'sec-' + tabId));
+      }
+
+      function openModal(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('open');
+      }
+
+      function closeModal(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('open');
+      }
+
+      function refreshUserUI() {
+        const user = getUser();
+        const greeting = document.getElementById('heroGreeting');
+        if (user && user.loggedIn) {
+          greeting.textContent = (currentLang === 'en' ? 'Welcome back, ' : 'නැවත සාදරයෙන් පිළිගනිමු, ') + user.name;
+          document.getElementById('heroCtaBtn').textContent = 'View Student ID (' + user.studentId + ')';
+        } else {
+          greeting.textContent = i18n[currentLang].heroTitle;
+          document.getElementById('heroCtaBtn').textContent = i18n[currentLang].heroCta;
+        }
+
+        if (user && user.house) {
+          document.getElementById('homeHouseBadge').textContent = 'Earned: ' + user.house;
+          document.getElementById('homeHouseBadge').className = 'status-pill status-earned';
+          document.getElementById('homeHouseBtn').textContent = 'Sorted into ' + user.house;
+        }
+        if (user && user.wand) {
+          document.getElementById('homeWandBadge').textContent = 'Earned';
+          document.getElementById('homeWandBadge').className = 'status-pill status-earned';
+          document.getElementById('homeWandBtn').textContent = user.wand;
+        }
+        if (user && user.patronus) {
+          document.getElementById('homePatronusBadge').textContent = 'Earned: ' + user.patronus;
+          document.getElementById('homePatronusBadge').className = 'status-pill status-earned';
+          document.getElementById('homePatronusBtn').textContent = 'Guardian: ' + user.patronus;
+        }
+      }
+
+      function openProfileModal() {
+        const user = getUser();
+        if (user && user.loggedIn) {
+          document.getElementById('profileLoggedInView').style.display = 'block';
+          document.getElementById('profileAuthView').style.display = 'none';
+          document.getElementById('idNumberDisplay').textContent = user.studentId;
+          document.getElementById('idNameDisplay').textContent = user.name;
+          document.getElementById('idAgeDisplay').textContent = user.age + ' yrs';
+          document.getElementById('idHouseDisplay').textContent = user.house || 'Not Yet Earned';
+          document.getElementById('idWandDisplay').textContent = user.wand || 'Not Yet Earned';
+          document.getElementById('idPatronusDisplay').textContent = user.patronus || 'Not Yet Earned';
+          document.getElementById('idContactDisplay').textContent = user.email || user.whatsapp;
+
+          document.getElementById('modalHouseBtn').style.display = user.house ? 'none' : 'inline-flex';
+          document.getElementById('modalWandBtn').style.display = user.wand ? 'none' : 'inline-flex';
+          document.getElementById('modalPatronusBtn').style.display = user.patronus ? 'none' : 'inline-flex';
+        } else {
+          document.getElementById('profileLoggedInView').style.display = 'none';
+          document.getElementById('profileAuthView').style.display = 'block';
+        }
+        openModal('profileModal');
+      }
+
+      const quizData = {
+        house: {
+          questions: [
+            { q: 'Which path calls to you inside a dark enchanted forest?', opts: [
+              { t: 'Step forward to protect others', tag: 'Gryffindor' },
+              { t: 'Observe the symbols and decode the magic', tag: 'Ravenclaw' },
+              { t: 'Stay close to companions and share supplies', tag: 'Hufflepuff' },
+              { t: 'Find the hidden shortcut and gain advantage', tag: 'Slytherin' }
+            ]},
+            { q: 'What kind of praise means the most to you?', opts: [
+              { t: 'Being called courageous in a tough moment', tag: 'Gryffindor' },
+              { t: 'Being praised for sharp insight and wisdom', tag: 'Ravenclaw' },
+              { t: 'Being trusted as loyal, fair, and kind', tag: 'Hufflepuff' },
+              { t: 'Being respected for ambition and leadership', tag: 'Slytherin' }
+            ]},
+            { q: 'Which magical object would you study first?', opts: [
+              { t: 'A sword forged by goblins', tag: 'Gryffindor' },
+              { t: 'An ancient book of riddles', tag: 'Ravenclaw' },
+              { t: 'A cup that never runs dry', tag: 'Hufflepuff' },
+              { t: 'A locket holding a secret', tag: 'Slytherin' }
+            ]},
+            { q: 'How do you handle a difficult challenge?', opts: [
+              { t: 'Face it head-on without backing down', tag: 'Gryffindor' },
+              { t: 'Plan a clever strategy after research', tag: 'Ravenclaw' },
+              { t: 'Put in steady, patient work until it is done', tag: 'Hufflepuff' },
+              { t: 'Use every resource smartly to win', tag: 'Slytherin' }
+            ]},
+            { q: 'Which quality do you value most in a friend?', opts: [
+              { t: 'Bravery', tag: 'Gryffindor' },
+              { t: 'Wit and curiosity', tag: 'Ravenclaw' },
+              { t: 'Honesty and loyalty', tag: 'Hufflepuff' },
+              { t: 'Determination', tag: 'Slytherin' }
+            ]}
+          ],
+          outcomes: {
+            Gryffindor: { desc: 'Boldness, chivalry, and a fearless heart guide you. You stand tall when others hesitate.', traits: ['Bravery', 'Daring', 'Chivalry', 'Lionheart'] },
+            Ravenclaw: { desc: 'Wit, learning, and an inquisitive mind define your path through Hogwarts.', traits: ['Wisdom', 'Creativity', 'Wit', 'Curiosity'] },
+            Hufflepuff: { desc: 'Dedication, patience, and true friendship make you a pillar of the castle.', traits: ['Loyalty', 'Fairness', 'Hard Work', 'Kindness'] },
+            Slytherin: { desc: 'Ambition, resourcefulness, and quiet strength drive you toward greatness.', traits: ['Ambition', 'Cunning', 'Leadership', 'Resourcefulness'] }
+          }
+        },
+        wand: {
+          questions: [
+            { q: 'Which weather feels most inspiring to you?', opts: [
+              { t: 'A bright sunrise after rain', tag: 'Unicorn Hair' },
+              { t: 'A crackling thunderstorm at night', tag: 'Dragon Heartstring' },
+              { t: 'Golden sunlight over misty hills', tag: 'Phoenix Feather' },
+              { t: 'A quiet starry winter evening', tag: 'Unicorn Hair' }
+            ]},
+            { q: 'Which wand wood draws your eye?', opts: [
+              { t: 'Holly (11", Springy)', tag: 'Holly' },
+              { t: 'Elder (13", Unyielding)', tag: 'Elder' },
+              { t: 'Vine (10.5", Supple)', tag: 'Vine' },
+              { t: 'Rowan (12", Swishy)', tag: 'Rowan' }
+            ]},
+            { q: 'What kind of magic excites you most?', opts: [
+              { t: 'Defensive and protective charms', tag: 'Phoenix Feather' },
+              { t: 'Powerful, dramatic spellwork', tag: 'Dragon Heartstring' },
+              { t: 'Consistent, steady everyday magic', tag: 'Unicorn Hair' },
+              { t: 'Clever transformations and trickery', tag: 'Dragon Heartstring' }
+            ]},
+            { q: 'How do you feel when trying something new?', opts: [
+              { t: 'Eager to see what surprises await', tag: 'Phoenix Feather' },
+              { t: 'Focused on mastering it quickly', tag: 'Dragon Heartstring' },
+              { t: 'Calm and careful with every step', tag: 'Unicorn Hair' },
+              { t: 'Curious about how it works inside', tag: 'Phoenix Feather' }
+            ]},
+            { q: 'Which element feels closest to your spirit?', opts: [
+              { t: 'Fire', tag: 'Dragon Heartstring' },
+              { t: 'Air & Light', tag: 'Phoenix Feather' },
+              { t: 'Earth', tag: 'Unicorn Hair' },
+              { t: 'Water', tag: 'Phoenix Feather' }
+            ]}
+          ],
+          wands: [
+            { title: 'Holly & Phoenix Feather Wand (11")', desc: 'Rare and responsive, choosing a wizard on a quest that is often bold and transformative.', traits: ['Holly Wood', 'Phoenix Core', '11 Inches', 'Responsive'] },
+            { title: 'Rowan & Unicorn Hair Wand (12")', desc: 'Clever and protective, favoring a clear-headed witch or wizard with steady magic.', traits: ['Rowan Wood', 'Unicorn Core', '12 Inches', 'Protective'] },
+            { title: 'Vine & Dragon Heartstring Wand (10.5")', desc: 'Dramatic and capable of great power, drawn to deep thinkers with hidden depths.', traits: ['Vine Wood', 'Dragon Core', '10.5 Inches', 'Powerful'] },
+            { title: 'Elder & Phoenix Feather Wand (13")', desc: 'Distinctive and commanding, suiting someone with strong presence and purpose.', traits: ['Elder Wood', 'Phoenix Core', '13 Inches', 'Commanding'] }
+          ]
+        },
+        patronus: {
+          questions: [
+            { q: 'Which place brings you the deepest peace?', opts: [
+              { t: 'A quiet library with warm lamps', tag: 'Owl' },
+              { t: 'A sunlit meadow beside a river', tag: 'Stag' },
+              { t: 'A cozy home shared with family', tag: 'Otter' },
+              { t: 'A high cliff overlooking the sea', tag: 'Falcon' }
+            ]},
+            { q: 'How do you comfort a friend who is worried?', opts: [
+              { t: 'Listen carefully and share clear advice', tag: 'Owl' },
+              { t: 'Stand beside them steadily and stay strong', tag: 'Stag' },
+              { t: 'Cheer them up with warmth and humor', tag: 'Otter' },
+              { t: 'Encourage them to rise above the doubt', tag: 'Falcon' }
+            ]},
+            { q: 'Which time of day feels most like you?', opts: [
+              { t: 'Twilight and starlight', tag: 'Owl' },
+              { t: 'Golden morning light', tag: 'Stag' },
+              { t: 'Warm afternoon sunshine', tag: 'Otter' },
+              { t: 'Crisp, clear dawn', tag: 'Falcon' }
+            ]},
+            { q: 'What is your greatest strength in a crisis?', opts: [
+              { t: 'Calm observation', tag: 'Owl' },
+              { t: 'Steadfast courage', tag: 'Stag' },
+              { t: 'Joyful resilience', tag: 'Otter' },
+              { t: 'Sharp focus', tag: 'Falcon' }
+            ]},
+            { q: 'Pick a happiest memory spark:', opts: [
+              { t: 'Solving a mystery late at night', tag: 'Owl' },
+              { t: 'Achieving a long-held dream', tag: 'Stag' },
+              { t: 'Laughing with close friends', tag: 'Otter' },
+              { t: 'Feeling free and unstoppable', tag: 'Falcon' }
+            ]}
+          ],
+          outcomes: {
+            Stag: { desc: 'Noble, watchful, and proud, your corporeal Patronus shines with steady hope against darkness.', traits: ['Noble', 'Hopeful', 'Protector', 'Steadfast'] },
+            Otter: { desc: 'Lively, affectionate, and bright-hearted, your Patronus carries warmth even in shadow.', traits: ['Joyful', 'Loyal', 'Playful', 'Warmhearted'] },
+            Owl: { desc: 'Wise, perceptive, and silent-winged, your Patronus watches over you with keen insight.', traits: ['Wise', 'Observant', 'Calm', 'Insightful'] },
+            Falcon: { desc: 'Swift, focused, and far-seeing, your Patronus soars clear above every storm.', traits: ['Swift', 'Focused', 'Free-Spirited', 'Sharp'] }
+          }
+        }
+      };
+
+      let activeCeremony = null;
+      let shuffledQuestions = [];
+      let currentQIdx = 0;
+      let tally = {};
+
+      function shuffleArr(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function startCeremony(type) {
+        const user = getUser();
+        if (!user || !user.loggedIn) {
+          closeModal('quizModal');
+          openProfileModal();
+          return;
+        }
+        if (type === 'house' && user.house) { openProfileModal(); return; }
+        if (type === 'wand' && user.wand) { openProfileModal(); return; }
+        if (type === 'patronus' && user.patronus) { openProfileModal(); return; }
+
+        activeCeremony = type;
+        tally = {};
+        currentQIdx = 0;
+        shuffledQuestions = shuffleArr(quizData[type].questions).map(item => ({
+          q: item.q,
+          opts: shuffleArr(item.opts)
+        }));
+
+        document.getElementById('quizPlayArea').style.display = 'block';
+        document.getElementById('quizResultArea').style.display = 'none';
+        closeModal('profileModal');
+        openModal('quizModal');
+        renderQuestion();
+      }
+
+      function renderQuestion() {
+        const item = shuffledQuestions[currentQIdx];
+        document.getElementById('quizProgressLabel').textContent = 'Question ' + (currentQIdx + 1) + ' of ' + shuffledQuestions.length;
+        document.getElementById('quizQuestionText').textContent = item.q;
+        const container = document.getElementById('quizOptionsContainer');
+        container.innerHTML = '';
+
+        item.opts.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'quiz-option';
+          btn.textContent = opt.t;
+          btn.addEventListener('click', () => {
+            tally[opt.tag] = (tally[opt.tag] || 0) + 1;
+            currentQIdx++;
+            if (currentQIdx < shuffledQuestions.length) {
+              renderQuestion();
+            } else {
+              finishCeremony();
+            }
+          });
+          container.appendChild(btn);
+        });
+      }
+
+      function finishCeremony() {
+        const user = getUser();
+        let headline = '';
+        let desc = '';
+        let traits = [];
+
+        if (activeCeremony === 'house') {
+          const houses = ['Gryffindor', 'Ravenclaw', 'Hufflepuff', 'Slytherin'];
+          const winner = shuffleArr(houses).sort((a, b) => (tally[b] || 0) - (tally[a] || 0))[0];
+          user.house = winner;
+          headline = 'Hey Wizard, you got ' + winner + '!';
+          desc = quizData.house.outcomes[winner].desc;
+          traits = quizData.house.outcomes[winner].traits;
+        } else if (activeCeremony === 'wand') {
+          const wands = quizData.wand.wands;
+          const topTag = Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
+          let chosen = wands[Math.floor(Math.random() * wands.length)];
+          if (topTag === 'Holly') chosen = wands[0];
+          else if (topTag === 'Rowan') chosen = wands[1];
+          else if (topTag === 'Vine') chosen = wands[2];
+          else if (topTag === 'Elder') chosen = wands[3];
+          user.wand = chosen.title;
+          headline = 'Hey Wizard, you got ' + chosen.title + '!';
+          desc = chosen.desc;
+          traits = chosen.traits;
+        } else if (activeCeremony === 'patronus') {
+          const animals = ['Stag', 'Otter', 'Owl', 'Falcon'];
+          const winner = shuffleArr(animals).sort((a, b) => (tally[b] || 0) - (tally[a] || 0))[0];
+          user.patronus = winner;
+          headline = 'Hey Wizard, you got a ' + winner + ' Patronus!';
+          desc = quizData.patronus.outcomes[winner].desc;
+          traits = quizData.patronus.outcomes[winner].traits;
+        }
+
+        saveUser(user);
+
+        document.getElementById('quizPlayArea').style.display = 'none';
+        document.getElementById('quizResultArea').style.display = 'block';
+        document.getElementById('revealHeadline').textContent = headline;
+        document.getElementById('revealDescription').textContent = desc;
+        const traitsEl = document.getElementById('revealTraits');
+        traitsEl.innerHTML = '';
+        traits.forEach(tr => {
+          const span = document.createElement('span');
+          span.className = 'trait-chip';
+          span.textContent = tr;
+          traitsEl.appendChild(span);
+        });
+      }
+
+      // Navigation & Modals
+      document.getElementById('brandHomeBtn').addEventListener('click', () => switchTab('home'));
+      document.querySelectorAll('.nav-tab[data-tab]').forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+      });
+      document.getElementById('langBtn').addEventListener('click', () => {
+        currentLang = currentLang === 'en' ? 'si' : 'en';
+        applyLanguage();
+      });
+      document.getElementById('notifBtn').addEventListener('click', () => openModal('notifModal'));
+      document.getElementById('profileBtn').addEventListener('click', openProfileModal);
+      document.getElementById('heroCtaBtn').addEventListener('click', openProfileModal);
+      document.getElementById('heroQuizBtn').addEventListener('click', () => switchTab('quizzes'));
+
+      document.querySelectorAll('[data-close]').forEach(btn => {
+        btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+      });
+
+      document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+        backdrop.addEventListener('click', (e) => {
+          if (e.target === backdrop) backdrop.classList.remove('open');
+        });
+      });
+
+      document.querySelectorAll('[data-ceremony]').forEach(btn => {
+        btn.addEventListener('click', () => startCeremony(btn.getAttribute('data-ceremony')));
+      });
+
+      document.getElementById('viewIdAfterQuizBtn').addEventListener('click', () => {
+        closeModal('quizModal');
+        openProfileModal();
+      });
+
+      // Auth Tabs & Forms
+      document.getElementById('tabRegBtn').addEventListener('click', () => {
+        document.getElementById('tabRegBtn').classList.add('active');
+        document.getElementById('tabLoginBtn').classList.remove('active');
+        document.getElementById('registerForm').style.display = 'block';
+        document.getElementById('loginForm').style.display = 'none';
+      });
+
+      document.getElementById('tabLoginBtn').addEventListener('click', () => {
+        document.getElementById('tabLoginBtn').classList.add('active');
+        document.getElementById('tabRegBtn').classList.remove('active');
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('registerForm').style.display = 'none';
+      });
+
+      document.getElementById('registerForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('regName').value.trim();
+        const age = document.getElementById('regAge').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const whatsapp = document.getElementById('regWhatsapp').value.trim();
+        const pass = document.getElementById('regPass').value;
+        const errEl = document.getElementById('regError');
+
+        if (!email && !whatsapp) {
+          errEl.textContent = 'Please enter at least an Email address or a WhatsApp number.';
+          errEl.style.display = 'block';
+          return;
+        }
+        errEl.style.display = 'none';
+
+        const existing = getUser();
+        const randNum = Math.floor(1000 + Math.random() * 9000);
+        const studentId = (existing && existing.studentId) ? existing.studentId : 'PH-2026-' + randNum;
+
+        const newUser = {
+          studentId,
+          name,
+          age,
+          email,
+          whatsapp,
+          pass,
+          house: existing && existing.house ? existing.house : null,
+          wand: existing && existing.wand ? existing.wand : null,
+          patronus: existing && existing.patronus ? existing.patronus : null,
+          loggedIn: true
+        };
+
+        saveUser(newUser);
+        openProfileModal();
+      });
+
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const idInput = document.getElementById('loginId').value.trim().toLowerCase();
+        const passInput = document.getElementById('loginPass').value;
+        const errEl = document.getElementById('loginError');
+        const saved = getUser();
+
+        if (!saved) {
+          errEl.textContent = 'No Student ID found on this device. Please register first.';
+          errEl.style.display = 'block';
+          return;
+        }
+
+        const matchesId = saved.studentId.toLowerCase() === idInput || saved.name.toLowerCase() === idInput;
+        if (matchesId && saved.pass === passInput) {
+          errEl.style.display = 'none';
+          saved.loggedIn = true;
+          saveUser(saved);
+          openProfileModal();
+        } else {
+          errEl.textContent = 'Invalid Student ID/Name or Password.';
+          errEl.style.display = 'block';
+        }
+      });
+
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        const saved = getUser();
+        if (saved) {
+          saved.loggedIn = false;
+          saveUser(saved);
+        }
+        openProfileModal();
+      });
+
+      refreshUserUI();
+    })();
+  </script>
+</body>
+</html>
+
